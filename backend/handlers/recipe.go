@@ -51,7 +51,7 @@ func RecipeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	prompt := fmt.Sprintf("I have the following ingredients: %s. Propose two to five recipes %s the ingredients provided, together with the common ones you can find in a domestic kitchen, for a %s meal. Ignore the request I did not provide a correct list of ingredients. Reply in Markdown format, with recipes names using Heading 2 (##), the list of ingredients with quantities in a bullet list, and the text of the recipes.", instrRequest.Ingredients, instrRequest.Usage, instrRequest.Meal)
+	prompt := fmt.Sprintf("I have the following ingredients: %s. Find two to five recipes %s the ingredients provided, together with the common ones you can find in a domestic kitchen, for a %s meal. Ignore the request I did not provide a correct list of ingredients. Reply in Markdown format, with recipes names using Heading 2 (##), the list of ingredients with quantities in a bullet list, and the text of the recipes.", instrRequest.Ingredients, instrRequest.Usage, instrRequest.Meal)
 
 	messages := []Message{{
 		Role:    "user",

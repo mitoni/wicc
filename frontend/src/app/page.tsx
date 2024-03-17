@@ -61,10 +61,15 @@ export default function Home() {
   React.useEffect(() => {
     for (let recipe of recipes) {
       const body = JSON.stringify({ title: recipe.title });
-      fetch("http://localhost:8080/image/", {
-        method: "POST",
-        body,
-      }).then(async (res) => {
+      fetch(
+        `http://${
+          process.env.NODE_ENV === "development" ? "localhost" : "backend"
+        }:8080/image/`,
+        {
+          method: "POST",
+          body,
+        },
+      ).then(async (res) => {
         const text = await res.text();
         setImages((prev) => {
           return { ...prev, [recipe.title]: text };
@@ -84,10 +89,15 @@ export default function Home() {
       setRecipes([]);
 
       const body = JSON.stringify(values);
-      const res = await fetch("http://localhost:8080/recipes/", {
-        method: "POST",
-        body,
-      });
+      const res = await fetch(
+        `http://${
+          process.env.NODE_ENV === "development" ? "localhost" : "backend"
+        }:8080/recipes/`,
+        {
+          method: "POST",
+          body,
+        },
+      );
 
       const text = await res.text();
 

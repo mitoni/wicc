@@ -15,4 +15,4 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /wicc
 
 EXPOSE 8080
 
-CMD ["/wicc"]
+CMD APP_ENV=production /wicc
