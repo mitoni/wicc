@@ -62,7 +62,7 @@ export default function Home() {
     for (let recipe of recipes) {
       const body = JSON.stringify({ title: recipe.title });
       fetch(
-        `http://${
+        `${
           process.env.NODE_ENV === "development" ? "localhost" : "backend"
         }:8080/image/`,
         {
@@ -90,7 +90,7 @@ export default function Home() {
 
       const body = JSON.stringify(values);
       const res = await fetch(
-        `http://${
+        `${
           process.env.NODE_ENV === "development" ? "localhost" : "backend"
         }:8080/recipes/`,
         {
