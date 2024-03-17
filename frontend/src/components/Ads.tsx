@@ -29,7 +29,11 @@ function Ads(props: Props) {
 
       <ins
         className="adsbygoogle"
-        style={{ display: "block", border: "1px solid red" }}
+        style={{
+          display: "block",
+          border:
+            process.env.NODE_ENV === "development" ? "1px solid red" : "unset",
+        }}
         data-ad-client="ca-pub-5468215328024967"
         data-ad-slot={slot}
         data-ad-format="auto"

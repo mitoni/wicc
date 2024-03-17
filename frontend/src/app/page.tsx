@@ -16,8 +16,13 @@ import Markdown from "react-markdown";
 import Lottie from "lottie-react";
 import imageLoadingAnimation from "../assets/animations/image-loading.json";
 import Ads from "@/components/Ads";
-import testResponse from "../assets/test-response";
+// import testResponse from "../assets/test-response";
 import Donate from "@/components/Donate";
+
+const ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? "http://wicc.app:8080"
+    : "http://localhost:8080";
 
 export default function Home() {
   const [ingredients, setIngredients] = React.useState<string>("");
@@ -61,15 +66,10 @@ export default function Home() {
   React.useEffect(() => {
     for (let recipe of recipes) {
       const body = JSON.stringify({ title: recipe.title });
-      fetch(
-        `${
-          process.env.NODE_ENV === "development" ? "localhost" : "backend"
-        }:8080/image/`,
-        {
-          method: "POST",
-          body,
-        },
-      ).then(async (res) => {
+      fetch(ENDPOINT + "/image/", {
+        method: "POST",
+        body,
+      }).then(async (res) => {
         const text = await res.text();
         setImages((prev) => {
           return { ...prev, [recipe.title]: text };
@@ -89,15 +89,10 @@ export default function Home() {
       setRecipes([]);
 
       const body = JSON.stringify(values);
-      const res = await fetch(
-        `${
-          process.env.NODE_ENV === "development" ? "localhost" : "backend"
-        }:8080/recipes/`,
-        {
-          method: "POST",
-          body,
-        },
-      );
+      const res = await fetch(ENDPOINT + "/recipes/", {
+        method: "POST",
+        body,
+      });
 
       const text = await res.text();
 

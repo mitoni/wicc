@@ -10,4 +10,6 @@ RUN yarn build
 
 EXPOSE 3000
 
-CMD NODE_ENV=production yarn start
+ENV NODE_ENV=production
+
+CMD yarn start
