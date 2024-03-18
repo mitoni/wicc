@@ -33,7 +33,7 @@ func main() {
 	// Handler functions
 	http.HandleFunc("/recipes/", handlers.RecipeHandler)
 	http.HandleFunc("/image/", handlers.ImageHandler)
-	http.HandleFunc("/check", handlers.HealthCheck)
+	http.HandleFunc("/check/", handlers.HealthCheck)
 
 	port := 8080
 

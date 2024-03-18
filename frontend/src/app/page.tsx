@@ -21,7 +21,7 @@ import Donate from "@/components/Donate";
 
 const ENDPOINT =
   process.env.NODE_ENV === "production"
-    ? "http://wicc.app:8080"
+    ? "https://wicc.app"
     : "http://localhost:8080";
 
 export default function Home() {
