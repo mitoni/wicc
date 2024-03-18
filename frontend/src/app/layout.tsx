@@ -9,6 +9,7 @@ const instrumentSans = Instrument_Sans({
 });
 
 import { Cormorant } from "next/font/google";
+import Adsense from "@/components/Adsense";
 const cormorant = Cormorant({ weight: ["400", "600"], subsets: ["latin"] });
 
 export const metadata = {
@@ -41,6 +42,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Adsense />
+      </head>
       <body
         style={{
           maxWidth: "100vw",
