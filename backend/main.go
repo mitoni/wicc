@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"wicc/handlers"
 
 	"github.com/go-rod/rod"
@@ -15,7 +16,11 @@ var browser rod.Browser
 func main() {
 	var err error
 
-    err = godotenv.Load()
+    env := os.Getenv("APP_ENV")
+
+    if env == "development" {
+        err = godotenv.Load()
+    }
 
 	if err != nil {
 		log.Fatal("Error loading .env file")
