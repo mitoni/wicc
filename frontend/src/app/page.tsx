@@ -101,12 +101,12 @@ export default function Home() {
       // const text = testResponse;
 
       // Split response on h2
-      const _recipes = text.split(/(?=##)/);
+      const _recipes = text.split(/(?=###)/);
       const recipes = await Promise.all(
         _recipes.map(async (recipe) => {
           // Get the title
           let title = recipe.split(/\n/)[0];
-          title = title.replace("##", "");
+          title = title.replace("###", "");
 
           return {
             title,
@@ -115,7 +115,7 @@ export default function Home() {
         }),
       );
 
-      if (recipes.length < 2) {
+      if (recipes.length < 1) {
         throw recipes[0]?.body;
       }
 
@@ -129,6 +129,7 @@ export default function Home() {
 
       setImages(images);
     } catch (error) {
+      console.error(error);
       const defaultError =
         "Something went wrong and I have no idea why 🙃 Please try again later.";
       setError(String(error) ?? defaultError);
