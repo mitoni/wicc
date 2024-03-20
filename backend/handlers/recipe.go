@@ -71,14 +71,14 @@ func RecipeHandler(w http.ResponseWriter, r *http.Request) {
 
 	body := bytes.NewReader(payload)
 
-	openai_req, err := http.NewRequest("POST", os.Getenv("ENDPOINT"), body)
+	openai_req, err := http.NewRequest("POST", os.Getenv("CHAT_ENDPOINT"), body)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	openai_req.Header.Set("Content-Type", "application/json")
-	openai_req.Header.Set("Authorization", os.ExpandEnv("Bearer $KEY"))
+	openai_req.Header.Set("Authorization", os.ExpandEnv("Bearer $API_KEY"))
 
 	res, err := http.DefaultClient.Do(openai_req)
 
