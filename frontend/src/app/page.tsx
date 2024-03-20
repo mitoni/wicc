@@ -206,7 +206,13 @@ export default function Home() {
           pb={theme.spacing.lg}
           style={{ zIndex: 19 }}
         >
-          <Title order={1}>What I Can Cook...</Title>
+          <Title order={1} visibleFrom="md">
+            What I Can Cook...
+          </Title>
+
+          <Title order={1} size={"h2"} hiddenFrom="md">
+            What I Can Cook...
+          </Title>
 
           <div>
             <span>with </span>
@@ -216,19 +222,24 @@ export default function Home() {
 
         <Form form={form} onSubmit={handleSubmit}>
           <Grid>
-            <Grid.Col span={4}>
+            <Grid.Col span={{ sm: 12, md: 4 }}>
               <Flex
                 h={"100%"}
-                justify={"end"}
+                justify={{ sm: "start", md: "end" }}
                 align={"start"}
                 bg={"#ebedeecc"}
-                style={{ borderRadius: "0.66rem" }}
+                px={"0.66rem"}
+                style={{
+                  borderRadius: "0.66rem",
+                  backdropFilter: "blur(30px)",
+                  WebkitBackdropFilter: "blur(30px)",
+                }}
               >
                 I have
               </Flex>
             </Grid.Col>
 
-            <Grid.Col span={8}>
+            <Grid.Col span={{ sm: 12, md: 8 }}>
               <Textarea
                 style={{ margin: "auto" }}
                 w={"100%"}
@@ -237,19 +248,24 @@ export default function Home() {
               />
             </Grid.Col>
 
-            <Grid.Col span={4} ta={"right"}>
+            <Grid.Col span={{ sm: 12, md: 4 }} ta={"right"}>
               <Flex
                 h={"100%"}
-                justify={"end"}
+                justify={{ sm: "start", md: "end" }}
                 align={"center"}
                 bg={"#ebedeecc"}
-                style={{ borderRadius: "0.66rem" }}
+                px={"0.66rem"}
+                style={{
+                  borderRadius: "0.66rem",
+                  backdropFilter: "blur(30px)",
+                  WebkitBackdropFilter: "blur(30px)",
+                }}
               >
                 and I want a recipe
               </Flex>
             </Grid.Col>
 
-            <Grid.Col span={4}>
+            <Grid.Col span={{ sm: 12, md: 4 }}>
               <Select
                 allowDeselect={false}
                 w={"100%"}
@@ -262,31 +278,45 @@ export default function Home() {
               />
             </Grid.Col>
 
-            <Grid.Col span={4} ta={"left"} style={{ verticalAlign: "middle" }}>
+            <Grid.Col
+              span={{ sm: 12, md: 4 }}
+              ta={"left"}
+              style={{ verticalAlign: "middle" }}
+            >
               <Flex
                 h={"100%"}
                 justify={"start"}
                 align={"center"}
                 bg={"#ebedeecc"}
-                style={{ borderRadius: "0.66rem" }}
+                px={"0.66rem"}
+                style={{
+                  borderRadius: "0.66rem",
+                  backdropFilter: "blur(30px)",
+                  WebkitBackdropFilter: "blur(30px)",
+                }}
               >
                 those ingredients
               </Flex>
             </Grid.Col>
 
-            <Grid.Col span={4} ta={"right"}>
+            <Grid.Col span={{ sm: 12, md: 4 }} ta={"right"}>
               <Flex
                 h={"100%"}
-                justify={"end"}
+                justify={{ sm: "start", md: "end" }}
                 align={"center"}
                 bg={"#ebedeecc"}
-                style={{ borderRadius: "0.66rem" }}
+                px={"0.66rem"}
+                style={{
+                  borderRadius: "0.66rem",
+                  backdropFilter: "blur(30px)",
+                  WebkitBackdropFilter: "blur(30px)",
+                }}
               >
                 to prepare for
               </Flex>
             </Grid.Col>
 
-            <Grid.Col span={4}>
+            <Grid.Col span={{ sm: 12, md: 4 }}>
               <Select
                 allowDeselect={false}
                 w={"100%"}
