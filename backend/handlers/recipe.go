@@ -38,7 +38,7 @@ type Data struct {
 func RecipeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Access-Control-Allow-Origin", "*")
 	w.Header().Add("Access-Control-Allow-Credentials", "true")
-	w.Header().Add("Access-Control-Allow-Methods", "POST")
+	w.Header().Add("Access-Control-Allow-Methods", "POST, OPTIONS")
 	w.Header().Add("Access-Control-Allow-Headers", "Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date")
 	w.Header().Add("Content-Type", "application/json")
 
