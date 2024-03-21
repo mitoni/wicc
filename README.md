@@ -19,3 +19,6 @@ The Go server contains an instance of go-rod for headless browser navigation to 
 ### Infrastructure
 EC2 with Docker, ALB for SSL redirecting HTTPS requests to the Next.js app and POST requests to port 8080 and the Go server.
 ![](./infrastructure.png)
+
+### Next steps
+- Remove GPT API and use a pre-trained model like [flax-community/t5-recipe-generation](https://huggingface.co/flax-community/t5-recipe-generation?text=mozzarella,+basil,+bread) for be sustainable in the long term.
