@@ -15,7 +15,7 @@ import React from "react";
 import Markdown from "react-markdown";
 import Lottie from "lottie-react";
 import imageLoadingAnimation from "../assets/animations/image-loading.json";
-import Ads from "@/components/Ads";
+// import Ads from "@/components/Ads";
 // import testResponse from "../assets/test-response";
 import Donate from "@/components/Donate";
 
@@ -351,9 +351,9 @@ export default function Home() {
           </Text>
         </Flex>
 
-        {recipes.length || error ? null : (
+        {/* recipes.length || error ? null : (
           <Ads style={{ margin: `${theme.spacing.lg} 0` }} slot="2402485177" />
-        )}
+        ) */}
 
         <Flex direction={"column"}>
           {error ? (
@@ -406,10 +406,10 @@ export default function Home() {
                   </a>
                 </Flex>
 
-                <Ads
+                {/* <Ads
                   style={{ margin: `${theme.spacing.lg} 0` }}
                   slot="4842560659"
-                />
+                /> */}
 
                 {index !== recipes.length - 1 ? (
                   <Flex w={"100%"} justify={"center"}>
