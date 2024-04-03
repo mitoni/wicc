@@ -12,7 +12,6 @@ import {
 } from "@mantine/core";
 import { Form, useForm } from "@mantine/form";
 import React from "react";
-import Markdown from "react-markdown";
 import Lottie from "lottie-react";
 import imageLoadingAnimation from "../assets/animations/image-loading.json";
 // import Ads from "@/components/Ads";
@@ -27,7 +26,12 @@ const ENDPOINT =
 export default function Home() {
   const [ingredients, setIngredients] = React.useState<string>("");
   const [recipes, setRecipes] = React.useState<
-    { title: string; body: string }[]
+    {
+      title: string;
+      ingredients: string[];
+      instructions: string[];
+      description: string;
+    }[]
   >([]);
   const [images, setImages] = React.useState<Record<string, string>>({});
   const [isLoading, setLoading] = React.useState<boolean>(false);
@@ -64,18 +68,31 @@ export default function Home() {
   });
 
   React.useEffect(() => {
-    for (let recipe of recipes) {
+    function getImage() {
+      if (!_recipes.length) return;
+
+      const recipe = _recipes.shift()!;
+
       const body = JSON.stringify({ title: recipe.title });
       fetch(ENDPOINT + "/image/", {
         method: "POST",
         body,
-      }).then(async (res) => {
-        const text = await res.text();
-        setImages((prev) => {
-          return { ...prev, [recipe.title]: text };
+      })
+        .then(async (res) => {
+          const text = await res.text();
+          setImages((prev) => {
+            return { ...prev, [recipe.title]: text };
+          });
+        })
+        .catch((error) => {
+          console.error(error);
         });
-      });
+
+      setTimeout(getImage, 250);
     }
+
+    const _recipes = [...recipes];
+    getImage();
   }, [recipes]);
 
   async function handleSubmit(values: typeof form.values) {
@@ -94,26 +111,7 @@ export default function Home() {
         body,
       });
 
-      const text = await res.text();
-
-      // await wait();
-      //
-      // const text = testResponse;
-
-      // Split response on h2
-      const _recipes = text.split(/(?=###)/);
-      const recipes = await Promise.all(
-        _recipes.map(async (recipe) => {
-          // Get the title
-          let title = recipe.split(/\n/)[0];
-          title = title.replace("###", "");
-
-          return {
-            title,
-            body: recipe,
-          };
-        }),
-      );
+      const recipes = (await res.json())?.recipes;
 
       if (recipes.length < 1) {
         throw recipes[0]?.body;
@@ -362,10 +360,25 @@ export default function Home() {
             </Flex>
           ) : (
             recipes?.map((recipe, index) => (
-              <Flex key={index} direction={"column"} mt={theme.spacing.lg}>
+              <Flex
+                key={recipe.title}
+                direction={"column"}
+                mt={theme.spacing.lg}
+              >
                 <Grid>
                   <Grid.Col span={10}>
-                    <Markdown key={index}>{recipe.body}</Markdown>
+                    <h3>{recipe.title}</h3>
+                    <ul>
+                      {recipe.ingredients?.map((ingredient, index) => (
+                        <li key={index}>{ingredient}</li>
+                      ))}
+                    </ul>
+                    <p>{recipe.description}</p>
+                    <ol>
+                      {recipe.instructions.map((instruction, index) => (
+                        <li key={index}>{instruction}</li>
+                      ))}
+                    </ol>
                   </Grid.Col>
 
                   <Grid.Col span={2}>

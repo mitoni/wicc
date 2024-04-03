@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
+	"time"
 
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/launcher"
@@ -42,9 +44,18 @@ func ImageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url := fmt.Sprintf("https://www.google.com/search?tbm=isch&q=%s", imageRequest.Title)
+	url := fmt.Sprintf("https://www.google.com/search?tbm=isch&q=%s", strings.ReplaceAll(imageRequest.Title, " ", "+"))
 	page := browser.MustPage(url).MustWaitLoad()
-	image_container := page.MustElement("#islrg > :first-child > div > a > div > img")
+	// html := page.MustWindowFullscreen().MustHTML()
+	// html_str := []byte(html)
+	// os.WriteFile(fmt.Sprintf("%s.html", imageRequest.Title), html_str, 0644)
+	image_container, err := page.Timeout(10 * time.Second).Element("#search g-img > img")
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	image_src := image_container.MustAttribute("src")
 
 	fmt.Fprintf(w, *image_src)

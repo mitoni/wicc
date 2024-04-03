@@ -50,7 +50,18 @@ func RecipeHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	prompt := fmt.Sprintf("I have the following ingredients: %s. Could you propose three to five recipes using %s ingredients, together with the common ones you can find in a domestic kitchen, for a %s meal? Ignore the request if a correct list of ingredient was not provided or the recipes are unethical. Reply in Markdown format, without intro and outro, including only recipes names using Heading 3 (###), the list of ingredients with quantities in a bullet list (-), and the text of the recipes.", instrRequest.Ingredients, instrRequest.Usage, instrRequest.Meal)
+	prompt := fmt.Sprintf(`Propose three to five recipes using %s ingredients delimited by the quotes "%s", together with the common ones you can find in a domestic kitchen, for a %s meal.\
+    Ignore the request if a correct list of ingredient was not provided or the recipes are unethical.\
+    Reply in JSON format with the following data structure:\
+    {
+        title: string,
+        ingredients: string[],
+        instructions: string[],
+        description: string
+    }
+    `,
+    // Reply in Markdown format, without intro and outro, including only recipes names using Heading 3 (###), the list of ingredients with quantities in a bullet list (-), and the text of the recipes.",
+    instrRequest.Usage, instrRequest.Ingredients, instrRequest.Meal)
 
 	messages := []Message{{
 		Role:    "user",
